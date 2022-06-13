@@ -18,14 +18,14 @@ func main() {
 
 type Arguments map[string]string
 type User struct {
-	Id    string
-	Email string
-	Age   uint8
+	Id    string `json:"id"`
+	Email string `json:"email"`
+	Age   uint8  `json:"age"`
 }
 
 func parseArgs() Arguments {
 	operationFlag := flag.String("operation", "", "<add|list|findById|remove>")
-	itemFlag := flag.String("item", "", "JSON e.g. {\"id\": \"1\", \"email\": «email@test.com», «age»: 23}")
+	itemFlag := flag.String("item", "", "JSON e.g. {\"id\": \"1\", \"email\": \"email@test.com\", \"age\": 23}")
 	fileNameFlag := flag.String("fileName", "", "The JSON file name with users data.")
 	flag.Parse()
 
@@ -158,7 +158,7 @@ func remove(id, fileName string, writer io.Writer) error {
 		return nil
 	}
 
-	if err := saveUsers(users, fileName); err != nil {
+	if err := saveUsers(newUsers, fileName); err != nil {
 		return fmt.Errorf("failed to save users: %w", err)
 	}
 
